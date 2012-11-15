@@ -112,7 +112,7 @@ void MasterSchedule::Init(const MasterConfig& arCfg, Master* apMaster)
 		                                e.ScanRate,
 		                                arCfg.TaskRetryRate,
 		                                AMP_POLL,
-		                                bind(&Master::EventPoll, apMaster, _1, e.ClassMask),
+		                                bind(&Master::EventPoll, apMaster, _1, e),
 		                                "Event Scan");
 
 		pEventScan->SetFlags(ONLINE_ONLY_TASKS);

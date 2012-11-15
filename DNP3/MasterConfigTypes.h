@@ -29,6 +29,8 @@ namespace dnp
 struct ExceptionScan {
 	int ClassMask;
 	millis_t ScanRate;
+        int useGroup30;
+        int useGroup2;
 };
 
 }

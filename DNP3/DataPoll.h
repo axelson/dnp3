@@ -20,6 +20,7 @@
 #define __DATA_POLL_H_
 
 #include "MasterTaskBase.h"
+#include "MasterConfigTypes.h"
 #include "VtoReader.h"
 
 namespace apl
@@ -63,7 +64,7 @@ public:
 
 	ClassPoll(Logger*, IDataObserver*, VtoReader*);
 
-	void Set(int aClassMask);
+	void Setscan(ExceptionScan e);
 
 	//Implement MasterTaskBase
 	void ConfigureRequest(APDU& arAPDU);
@@ -73,7 +74,7 @@ public:
 
 private:
 
-	int mClassMask;
+    ExceptionScan mExceptionScan;
 
 };
 

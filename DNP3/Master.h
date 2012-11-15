@@ -138,7 +138,7 @@ private:
 
 	void WriteIIN(ITask* apTask);
 	void IntegrityPoll(ITask* apTask);
-	void EventPoll(ITask* apTask, int aClassMask);
+	void EventPoll(ITask* apTask, ExceptionScan e);
 	void ChangeUnsol(ITask* apTask, bool aEnable, int aClassMask);
 	void SyncTime(ITask* apTask);
 	void ProcessCommand(ITask* apTask);

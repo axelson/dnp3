@@ -203,13 +203,16 @@ void Master::WriteIIN(ITask* apTask)
 
 void Master::IntegrityPoll(ITask* apTask)
 {
-	mClassPoll.Set(PC_CLASS_0);
+    ExceptionScan e;
+    e.ClassMask = PC_CLASS_0;
+	mClassPoll.Setscan(e);
 	mpState->StartTask(this, apTask, &mClassPoll);
 }
 
-void Master::EventPoll(ITask* apTask, int aClassMask)
+//void Master::EventPoll(ITask* apTask, int aClassMask)
+void Master::EventPoll(ITask* apTask, ExceptionScan e)
 {
-	mClassPoll.Set(aClassMask);
+	mClassPoll.Setscan(e);
 	mpState->StartTask(this, apTask, &mClassPoll);
 }
 

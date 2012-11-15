@@ -64,25 +64,35 @@ void DataPoll::ReadData(const APDU& f)
 
 ClassPoll::ClassPoll(Logger* apLogger, IDataObserver* apObs, VtoReader* apVtoReader) :
 	DataPoll(apLogger, apObs, apVtoReader),
-	mClassMask(PC_INVALID)
+    mExceptionScan()
 {}
 
-void ClassPoll::Set(int aClassMask)
+void ClassPoll::Setscan(ExceptionScan e)
 {
-	mClassMask = aClassMask;
+	mExceptionScan = e;
 }
 
 void ClassPoll::ConfigureRequest(APDU& arAPDU)
 {
-	if (mClassMask == PC_INVALID) {
+	if (mExceptionScan.ClassMask == PC_INVALID) {
 		throw InvalidStateException(LOCATION, "Class mask has not been set");
 	}
 
 	arAPDU.Set(FC_READ);
-	if (mClassMask & PC_CLASS_0) arAPDU.DoPlaceholderWrite(Group60Var1::Inst());
-	if (mClassMask & PC_CLASS_1) arAPDU.DoPlaceholderWrite(Group60Var2::Inst());
-	if (mClassMask & PC_CLASS_2) arAPDU.DoPlaceholderWrite(Group60Var3::Inst());
-	if (mClassMask & PC_CLASS_3) arAPDU.DoPlaceholderWrite(Group60Var4::Inst());
+	if (mExceptionScan.ClassMask & PC_CLASS_0) arAPDU.DoPlaceholderWrite(Group60Var1::Inst());
+	if (mExceptionScan.ClassMask & PC_CLASS_1) arAPDU.DoPlaceholderWrite(Group60Var2::Inst());
+	if (mExceptionScan.ClassMask & PC_CLASS_2) arAPDU.DoPlaceholderWrite(Group60Var3::Inst());
+	if (mExceptionScan.ClassMask & PC_CLASS_3) arAPDU.DoPlaceholderWrite(Group60Var4::Inst());
+
+    if (mExceptionScan.useGroup30 == 1) {
+        Group30Var2* pObj = Group30Var2::Inst();
+        ObjectWriteIterator i = arAPDU.WriteContiguous(pObj, 0, 35, QC_2B_START_STOP);
+    }
+
+    if( mExceptionScan.useGroup2 == 1) {
+        Group1Var2* pObj = Group1Var2::Inst();
+        ObjectWriteIterator i = arAPDU.WriteContiguous(pObj, 0, 2, QC_2B_START_STOP);
+    }
 }
 
 
