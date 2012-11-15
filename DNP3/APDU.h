@@ -68,7 +68,7 @@ public:
 	void Interpret();
 
 	/**
-		Parse and validate the only the header components of the
+		Parse and validate only the header components of the
 		currently-set buffer.
 
 		@throw Exception		if malformed data is encountered
