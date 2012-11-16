@@ -98,6 +98,10 @@ void CommandQueue::AcceptCommand(const apl::Setpoint& arType, size_t aIndex, int
 {
 	AcceptCommand<apl::Setpoint>(arType, aIndex, mSetpointQueue, aSequence, apRspAcceptor);
 }
+void CommandQueue::AcceptCommand(const apl::AnalogRead& arType, size_t aIndex, int aSequence, IResponseAcceptor* apRspAcceptor)
+{
+	AcceptCommand<apl::AnalogRead>(arType, aIndex, mAnalogReadQueue, aSequence, apRspAcceptor);
+}
 
 void CommandQueue::SetNotifier(INotifier* apNotifier)
 {
@@ -119,6 +123,10 @@ void CommandQueue::Read(apl::BinaryOutput& arType, CommandData& arData)
 void CommandQueue::Read(apl::Setpoint& arType, CommandData& arData)
 {
 	return Read<apl::Setpoint>(arType, arData, mSetpointQueue);
+}
+void CommandQueue::Read(apl::AnalogRead& arType, CommandData& arData)
+{
+	return Read<apl::AnalogRead>(arType, arData, mAnalogReadQueue);
 }
 
 }

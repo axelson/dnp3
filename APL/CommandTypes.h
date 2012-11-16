@@ -35,6 +35,7 @@ enum CommandModes {
 enum CommandTypes {
 	CT_BINARY_OUTPUT,
 	CT_SETPOINT,
+	CT_ANALOG_READ,
 	CT_NONE
 };
 
@@ -219,6 +220,41 @@ private:
 	double mValue;
 
 	SetpointEncodingType mEncodingType;
+
+};
+
+/**
+ * The object to reqresent an analog read request from the master. Think of
+ * this like reading an analog value from the slave.
+ */
+class AnalogRead : public CommandRequest
+{
+public:
+
+	/**
+	 * Creates a new AnalogRead instance based on 16-bit integer
+	 * values for start and ending index.
+	 */
+	AnalogRead(boost::int16_t startIndex, boost::int16_t endIndex);
+
+	std::string ToString() const;
+
+	bool operator==(const AnalogRead& arRHS) const {
+		return (fabs(mStart - arRHS.mStart) < 1E-6) &&
+			(fabs(mEnd - arRHS.mEnd) < 1E-6);
+	}
+
+	static const CommandTypes EnumType = CT_ANALOG_READ;
+
+	int GetStartValue() const;
+	int GetEndValue() const;
+
+	void SetStartValue(int aValue);
+	void SetEndValue(int aValue);
+
+private:
+	int mStart;
+	int mEnd;
 
 };
 

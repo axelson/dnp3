@@ -104,6 +104,8 @@ std::string ToString(CommandTypes aType)
 		return "BinaryOutput";
 	case(CT_SETPOINT):
 		return "Setpoint";
+	case(CT_ANALOG_READ):
+		return "AnalogRead";
 	default:
 		return "Unknown";
 	}
@@ -217,5 +219,38 @@ SetpointEncodingType Setpoint::GetOptimalEncodingType() const
 	return mEncodingType;
 }
 
+AnalogRead::AnalogRead(boost::int16_t startIndex, boost::int16_t endIndex) :
+	CommandRequest(CT_ANALOG_READ),
+	mStart(startIndex),
+	mEnd(endIndex)
+{}
+
+
+std::string AnalogRead::ToString() const
+{
+	std::ostringstream oss;
+	oss << "AnalogRead - start: " << mStart << " end: " << mEnd;
+	return oss.str();
+}
+
+void AnalogRead::SetStartValue(int aValue)
+{
+	mStart = aValue;
+}
+
+void AnalogRead::SetEndValue(int aValue)
+{
+	mEnd = aValue;
+}
+
+int AnalogRead::GetStartValue() const
+{
+	return mStart;
+}
+
+int AnalogRead::GetEndValue() const
+{
+	return mEnd;
+}
 
 }

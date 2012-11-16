@@ -32,6 +32,11 @@ void CommandResponder :: AcceptCommand(const Setpoint& ctrl, size_t i, int aSequ
 	apRspAcceptor->AcceptResponse(cr, aSequence);
 }
 
+void CommandResponder :: AcceptCommand(const AnalogRead& ctrl, size_t i, int aSequence, IResponseAcceptor* apRspAcceptor)
+{
+  exit(73);
+}
+
 CommandStatus CommandResponder :: HandleControl(const BinaryOutput& aControl, size_t aIndex)
 {
 	CommandStatus cs = CS_TOO_MANY_OPS;

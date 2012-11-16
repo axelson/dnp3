@@ -40,6 +40,10 @@ public:
 		this->AcceptCommand(aSequence, apRspAcceptor);
 	}
 
+	void AcceptCommand(const AnalogRead& aSt, size_t, int aSequence, IResponseAcceptor* apRspAcceptor) {
+	  exit(73);
+	}
+
 	void Queue(CommandStatus aStatus) {
 		mResponses.push(aStatus);
 	}

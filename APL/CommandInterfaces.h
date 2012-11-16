@@ -69,6 +69,16 @@ public:
 	*
 	*/
 	virtual void AcceptCommand(const Setpoint& arCommand, size_t aIndex, int aSequence, IResponseAcceptor* apRspAcceptor) = 0;
+
+	/** Asynchronous request for an analog read to be executed by the stack. The stack will call back with the supplied IResponseAcceptor.
+	*
+	*   @param arCommand The Analog Read request to execute
+	*   @param aIndex The index of the command
+	*   @param aSequence An ID used to correlate the request with the response. User supplied.
+	*   @param apRspAcceptor The interface used to make the callback
+	*
+	*/
+	virtual void AcceptCommand(const AnalogRead& arCommand, size_t aIndex, int aSequence, IResponseAcceptor* apRspAcceptor) = 0;
 };
 
 
