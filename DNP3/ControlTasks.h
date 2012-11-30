@@ -127,6 +127,26 @@ public:
 	static CommandObject<Setpoint>* GetOptimalEncoder(SetpointEncodingType aType);
 };
 
+// Concrete class for AnalogRead commands
+class AnalogReadTask : public ControlTask<AnalogRead>
+{
+public:
+	AnalogReadTask(Logger*);
+
+	CommandObject<AnalogRead>* GetObject(const AnalogRead&);
+
+	void ConfigureRequest(APDU& arAPDU);
+
+	std::string Name() const {
+		return "AnalogReadTask";
+	}
+
+	// TODO add other shit here
+	//TODO static CommandObject<AnalogRead>* GetOptimalEncoder(AnalogReadEncodingType aType);
+private:
+	int32_t mStartVal;
+};
+
 template <class T>
 void ControlTask<T>::ConfigureRequest(APDU& arAPDU)
 {

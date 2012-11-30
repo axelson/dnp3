@@ -68,6 +68,7 @@ namespace apl
 {
 class BinaryOutput;
 class Setpoint;
+class AnalogRead;
 class Analog;
 class Binary;
 class Counter;
@@ -165,6 +166,20 @@ struct Group12Var1 : public CommandObject<BinaryOutput> {
 	MACRO_NAME_SINGLETON_INSTANCE(Group12Var1)
 	MACRO_GROUP_VAR_SIZE_FUNC(12, 1, 11)
 	MACRO_DECLARE_STREAM_TYPE(BinaryOutput);
+
+	Pack<UInt8, 0>		mCode;
+	Pack<UInt8, 1>		mCount;
+	Pack<UInt32LE, 2>	mOnTime;
+	Pack<UInt32LE, 6>	mOffTime;
+	Pack<UInt8, 10>		mStatus;
+
+	apl::CopyableBuffer GetValueBytes(const boost::uint8_t*) const;
+};
+// Fake object to pass through the system to do an AnalogRead
+struct Group12Var4 : public CommandObject<AnalogRead> {
+	MACRO_NAME_SINGLETON_INSTANCE(Group12Var4)
+	MACRO_GROUP_VAR_SIZE_FUNC(12, 4, 11)
+	MACRO_DECLARE_STREAM_TYPE(AnalogRead);
 
 	Pack<UInt8, 0>		mCode;
 	Pack<UInt8, 1>		mCount;
@@ -519,6 +534,7 @@ struct Group30Var1 : public StreamObject<Analog> {
 	MACRO_DECLARE_STREAM_TYPE(Analog)
 };
 
+// TODO: may need to inherity from CommandObject<AnalogRead>
 struct Group30Var2 : public StreamObject<Analog> {
 	MACRO_NAME_SINGLETON_INSTANCE(Group30Var2)
 	MACRO_GROUP_VAR_SIZE_FUNC(30, 2, 3)

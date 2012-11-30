@@ -224,6 +224,17 @@ AnalogRead::AnalogRead(boost::int16_t startIndex, boost::int16_t endIndex) :
 	mStart(startIndex),
 	mEnd(endIndex)
 {}
+AnalogRead::AnalogRead(boost::int32_t startIndex, boost::int32_t endIndex) :
+	CommandRequest(CT_ANALOG_READ),
+	mStart(startIndex),
+	mEnd(endIndex)
+{}
+AnalogRead::AnalogRead(double startIndex, double endIndex) :
+	CommandRequest(CT_ANALOG_READ),
+	mStart(startIndex),
+	mEnd(endIndex)
+{}
+AnalogRead::AnalogRead() : CommandRequest(CT_ANALOG_READ) {}
 
 
 std::string AnalogRead::ToString() const
@@ -245,12 +256,14 @@ void AnalogRead::SetEndValue(int aValue)
 
 int AnalogRead::GetStartValue() const
 {
-	return mStart;
+		return static_cast<boost::int32_t>(mStart);
+	//return mStart;
 }
 
 int AnalogRead::GetEndValue() const
 {
-	return mEnd;
+		return static_cast<boost::int32_t>(mEnd);
+	//return mEnd;
 }
 
 }

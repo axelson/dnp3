@@ -192,6 +192,7 @@ private:
 	TimeSync mTimeSync;						// performs time sync on the outstation
 	BinaryOutputTask mExecuteBO;			// task for executing binary output
 	SetpointTask mExecuteSP;				// task for executing setpoint
+	AnalogReadTask mExecuteAR;				// task for executing setpoint
 	VtoTransmitTask mVtoTransmitTask;		// used to transmit VTO data in mVtoWriter
 
 };

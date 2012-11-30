@@ -34,8 +34,8 @@ enum CommandModes {
 
 enum CommandTypes {
 	CT_BINARY_OUTPUT,
-	CT_SETPOINT,
 	CT_ANALOG_READ,
+	CT_SETPOINT,
 	CT_NONE
 };
 
@@ -236,6 +236,9 @@ public:
 	 * values for start and ending index.
 	 */
 	AnalogRead(boost::int16_t startIndex, boost::int16_t endIndex);
+	AnalogRead(boost::int32_t startIndex, boost::int32_t endIndex);
+	AnalogRead(double startIndex, double endIndex);
+	AnalogRead();
 
 	std::string ToString() const;
 
@@ -246,15 +249,15 @@ public:
 
 	static const CommandTypes EnumType = CT_ANALOG_READ;
 
-	int GetStartValue() const;
-	int GetEndValue() const;
+	int32_t GetStartValue() const;
+	int32_t GetEndValue() const;
 
 	void SetStartValue(int aValue);
 	void SetEndValue(int aValue);
 
 private:
-	int mStart;
-	int mEnd;
+	double mStart;
+	double mEnd;
 
 };
 

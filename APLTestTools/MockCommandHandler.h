@@ -38,6 +38,10 @@ public:
 		++num_sp;
 		return CS_SUCCESS;
 	}
+	CommandStatus HandleControl(AnalogRead& aControl, size_t aIndex) {
+		++num_sp;
+		return CS_SUCCESS;
+	}
 
 	size_t num_bo;
 	size_t num_sp;

@@ -47,6 +47,7 @@ MACRO_STATIC_INSTANCE(10, 2)
 MACRO_STATIC_INSTANCE(12, 1)
 MACRO_STATIC_INSTANCE(12, 2)
 MACRO_STATIC_INSTANCE(12, 3)
+MACRO_STATIC_INSTANCE(12, 4)
 
 
 MACRO_STATIC_INSTANCE(20, 0)
@@ -237,6 +238,23 @@ BinaryOutput Group12Var1::Read(const boost::uint8_t* apPos) const
 }
 
 apl::CopyableBuffer Group12Var1::GetValueBytes(const boost::uint8_t* apPos) const
+{
+	return CopyableBuffer(apPos, 10); //first 10 bytes, everything but the status
+}
+
+void Group12Var4::Write(boost::uint8_t* apPos, const AnalogRead& arControl) const
+{
+	exit(73);
+}
+
+AnalogRead Group12Var4::Read(const boost::uint8_t* apPos) const
+{
+	AnalogRead b;
+	exit(73);
+	return b;
+}
+
+apl::CopyableBuffer Group12Var4::GetValueBytes(const boost::uint8_t* apPos) const
 {
 	return CopyableBuffer(apPos, 10); //first 10 bytes, everything but the status
 }

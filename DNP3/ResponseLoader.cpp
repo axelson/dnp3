@@ -22,6 +22,9 @@
 
 #include "HeaderReadIterator.h"
 #include "Objects.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 namespace apl
 {
@@ -40,6 +43,11 @@ void ResponseLoader::Process(HeaderReadIterator& arIter)
 	int grp = arIter->GetGroup();
 	int var = arIter->GetVariation();
 
+	ofstream myfile;
+	myfile.open ("example.txt", ios::app);
+	myfile << "ResponseLoader process data grp " << grp << " var " << var << "\n";
+	LOG_BLOCK(LEV_WARNING, "logging test stuff!");
+	myfile.close();
 	this->ProcessData(arIter, grp, var);
 
 	mCTO.NextHeader();

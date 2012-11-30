@@ -400,7 +400,7 @@ void Slave::HandleVtoTransfer(const APDU& arRequest)
 				break;
 			default:
 				mRspIIN.SetFuncNotSupported(true);
-				ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch", SERR_OBJ_FUNC_MISMATCH);
+				ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch1", SERR_OBJ_FUNC_MISMATCH);
 				break;
 		}
 	}
@@ -422,9 +422,13 @@ void Slave::HandleWrite(const APDU& arRequest)
 		case (MACRO_DNP_RADIX(50, 1)):
 			this->HandleWriteTimeDate(hdr);
 			break;
+		case (MACRO_DNP_RADIX(60, 4)):
+			mRspIIN.SetFuncNotSupported(true);
+			ERROR_BLOCK(LEV_WARNING, "Writing class data?", SERR_OBJ_FUNC_MISMATCH);
+			break;
 		default:
 			mRspIIN.SetFuncNotSupported(true);
-			ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch", SERR_OBJ_FUNC_MISMATCH);
+			ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch2", SERR_OBJ_FUNC_MISMATCH);
 			break;
 		}
 	}
@@ -464,7 +468,7 @@ void Slave::HandleSelect(const APDU& arRequest, SequenceInfo aSeqInfo)
 
 		default:
 			mRspIIN.SetFuncNotSupported(true);
-			ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch", SERR_OBJ_FUNC_MISMATCH);
+			ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch3", SERR_OBJ_FUNC_MISMATCH);
 			break;
 		}
 	}
@@ -506,7 +510,7 @@ void Slave::HandleOperate(const APDU& arRequest, SequenceInfo aSeqInfo)
 
 		default:
 			mRspIIN.SetFuncNotSupported(true);
-			ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch", SERR_OBJ_FUNC_MISMATCH);
+			ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch4", SERR_OBJ_FUNC_MISMATCH);
 			break;
 		}
 	}
@@ -544,7 +548,7 @@ void Slave::HandleDirectOperate(const APDU& arRequest, SequenceInfo aSeqInfo)
 
 		default:
 			mRspIIN.SetFuncNotSupported(true);
-			ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch", SERR_OBJ_FUNC_MISMATCH);
+			ERROR_BLOCK(LEV_WARNING, "Object/Function mismatch5", SERR_OBJ_FUNC_MISMATCH);
 			break;
 		}
 	}

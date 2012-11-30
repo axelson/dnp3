@@ -93,6 +93,7 @@ public:
 	virtual ~ICommandHandler() {}
 	virtual CommandStatus HandleControl(BinaryOutput& aControl, size_t aIndex) = 0;
 	virtual CommandStatus HandleControl(Setpoint& aControl, size_t aIndex) = 0;
+	virtual CommandStatus HandleControl(AnalogRead& aControl, size_t aIndex) = 0;
 };
 
 class FixedCommandHandler : public ICommandHandler
@@ -104,6 +105,9 @@ public:
 		return mStatus;
 	}
 	CommandStatus HandleControl(Setpoint&, size_t) {
+		return mStatus;
+	}
+	CommandStatus HandleControl(AnalogRead&, size_t) {
 		return mStatus;
 	}
 

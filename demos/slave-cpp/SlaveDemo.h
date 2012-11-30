@@ -97,6 +97,7 @@ public:
 		The same, but for binary outputs
 	 */
 	CommandStatus HandleControl(BinaryOutput& aControl, size_t aIndex);
+	CommandStatus HandleControl(AnalogRead& aControl, size_t aIndex);
 
 private:
 	int mCountSetPoints;    // count how many setpoints we recieve to demonstrate counters

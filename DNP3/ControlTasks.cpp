@@ -22,6 +22,10 @@
 
 #include <boost/bind.hpp>
 #include <APL/Logger.h>
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 namespace apl
 {
@@ -56,11 +60,20 @@ void ControlTaskBase::OnFailure()
 TaskResult ControlTaskBase::_OnPartialResponse(const APDU& arAPDU)
 {
 	LOG_BLOCK(LEV_ERROR, "Non fin responses not allowed for control tasks");
+	ofstream myfile;
+	myfile.open ("example.txt", ios::app);
+	myfile << "Got non-final response\n";
+	myfile.close();
+	
 	return TR_CONTINUE;
 }
 
 TaskResult ControlTaskBase::_OnFinalResponse(const APDU& arAPDU)
 {
+	ofstream myfile;
+	myfile.open ("example.txt", ios::app);
+	myfile << "Got final response\n with state " << mState << " success is " << CS_SUCCESS;
+	myfile.close();
 	CommandStatus cs = mValidator(arAPDU);
 
 	if(mState == SELECT && cs == CS_SUCCESS) {
@@ -106,6 +119,38 @@ CommandObject<Setpoint>* SetpointTask::GetOptimalEncoder(SetpointEncodingType aT
 CommandObject<Setpoint>* SetpointTask::GetObject(const Setpoint& arSetpoint)
 {
 	return GetOptimalEncoder(arSetpoint.GetOptimalEncodingType());
+}
+
+/* -------- AnalogReadTask -------- */
+
+AnalogReadTask::AnalogReadTask(Logger* apLogger) :
+	ControlTask<AnalogRead>(apLogger)
+{}
+
+CommandObject<AnalogRead>* AnalogReadTask::GetObject(const AnalogRead& analogRead)
+{
+	mStartVal = analogRead.GetStartValue();
+	//return Group30Var2::Inst();
+	return Group12Var4::Inst();
+}
+//CommandObject<BinaryOutput>* BinaryOutputTask::GetObject(const BinaryOutput&)
+//	return Group12Var1::Inst();
+
+void AnalogReadTask::ConfigureRequest(APDU& arAPDU)
+{
+	LOG_BLOCK(LEV_ERROR, "Non fin respXXXXXXXXXXXXXXXXXX");
+	  ofstream myfile;
+	    myfile.open ("example.txt", ios::app);
+	      myfile << "Writing this to a file.\n";
+	myfile << "got val\n";
+	myfile << "got val of " << mStartVal << endl;
+	        myfile.close();
+	if(mStartVal == 3) {
+	  arAPDU.DoPlaceholderWrite(Group60Var1::Inst());
+	} else {
+	  arAPDU.DoPlaceholderWrite(Group60Var4::Inst());
+	}
+	//arAPDU.DoPlaceholderWrite(Group60Var3::Inst());
 }
 
 

@@ -24,7 +24,8 @@
 #include "DeviceTemplate.h"
 
 #include <assert.h>
-
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 namespace apl
@@ -90,6 +91,13 @@ void DNPCommandMaster::BindCommand(CommandTypes aType, size_t aLocalIndex, size_
 
 	if ( aType == CT_BINARY_OUTPUT )
 		BindCommand<BinaryOutput>(mControlMap, aType, aLocalIndex, aRemoteIndex, aMode, aSelectTimeoutMS, apAcceptor);
+	else if ( aType == CT_ANALOG_READ )
+	{
+	  ofstream myfile;
+	  myfile.open ("example.txt", ios::app);
+	  myfile << "Should bind command analog read.\n";
+	  myfile.close();
+	}
 	else if ( aType == CT_SETPOINT )
 		BindCommand<Setpoint>(mSetpointMap, aType, aLocalIndex, aRemoteIndex, aMode, aSelectTimeoutMS, apAcceptor);
 	else

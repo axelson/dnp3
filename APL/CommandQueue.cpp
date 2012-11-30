@@ -82,6 +82,13 @@ bool CommandQueue::ExecuteCommand(ICommandHandler* apHandler)
 			rsp.mResult = apHandler->HandleControl(sp, info.mIndex);
 			break;
 		}
+
+	case(apl::CT_ANALOG_READ): {
+			apl::AnalogRead ar;
+			Read(ar, info);
+			rsp.mResult = apHandler->HandleControl(ar, info.mIndex);
+			break;
+		}
 	default:
 		return false;
 

@@ -71,6 +71,8 @@ public:
 	// Resets all of the tasks that run on startup. This is typically done after a failure
 	void ResetStartupTasks();
 
+	void Add(millis_t aPeriod, millis_t aRetryDelay, int aPriority, const TaskHandler& arCallback, const std::string& arName = "");
+
 private:
 
 	void Init(const MasterConfig& arCfg, Master* mpMaster);

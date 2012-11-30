@@ -51,6 +51,10 @@ void MasterSchedule::ResetStartupTasks()
 	mpGroup->ResetTasks(START_UP_TASKS);
 }
 
+void MasterSchedule::Add(millis_t aPeriod, millis_t aRetryDelay, int aPriority, const TaskHandler& arCallback, const std::string& arName) {
+	mpGroup->Add(aPeriod, aRetryDelay, aPriority, arCallback, arName);
+}
+
 void MasterSchedule::Init(const MasterConfig& arCfg, Master* apMaster)
 {
 	AsyncTaskBase* pIntegrity = mTracking.Add(

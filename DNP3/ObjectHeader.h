@@ -159,7 +159,9 @@ class RangedHeader : public IRangeHeader
 		return T::Max;
 	}
 
-	const static size_t Size = 3 + 2 * T::Size;
+	static const int Size3 = 6;
+	// test
+	static const size_t Size = 3 + 2 * T::Size;
 };
 
 template <class T, ObjectHeaderTypes U>
@@ -197,7 +199,7 @@ class CountHeader : public ICountHeader
 		return oss.str();
 	}
 
-	const static size_t Size = 3 + T::Size;
+	static const size_t Size = 3 + T::Size;
 };
 
 template <class T, ObjectHeaderTypes U>

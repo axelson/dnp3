@@ -67,6 +67,7 @@ Master::Master(Logger* apLogger, MasterConfig aCfg, IAppLayer* apAppLayer, IData
 	mTimeSync(apLogger, apTimeSrc),
 	mExecuteBO(apLogger),
 	mExecuteSP(apLogger),
+	mExecuteAR(apLogger),
 	mVtoTransmitTask(apLogger, aCfg.FragSize, aCfg.UseNonStandardVtoFunction)
 {
 	/*
@@ -167,6 +168,14 @@ void Master::ProcessCommand(ITask* apTask)
 				mCommandQueue.Read(cmd, info);
 				mExecuteSP.Set(cmd, info, true);
 				mpState->StartTask(this, apTask, &mExecuteSP);
+			}
+			break;
+		case(apl::CT_ANALOG_READ): {
+				apl::AnalogRead cmd;
+				mCommandQueue.Read(cmd, info);
+				// TODO: finish updating
+				mExecuteAR.Set(cmd, info, true);
+				mpState->StartTask(this, apTask, &mExecuteAR);
 			}
 			break;
 		default:

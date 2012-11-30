@@ -27,6 +27,9 @@
 #include "Master.h"
 #include <boost/bind.hpp>
 
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 namespace apl
 {
@@ -153,6 +156,10 @@ void AMS_Waiting::OnPartialResponse(Master* c, const APDU& arAPDU)
 
 void AMS_Waiting::OnFinalResponse(Master* c, const APDU& arAPDU)
 {
+	ofstream myfile;
+	myfile.open ("example.txt", ios::app);
+	myfile << "final response for ams waiting\n";
+	myfile.close();
 	switch(c->mpTask->OnFinalResponse(arAPDU)) {
 	case(TR_FAIL):
 		this->ChangeState(c, AMS_Idle::Inst());
